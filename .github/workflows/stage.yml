@@ -1,14 +1,23 @@
 name: "STAGE DEPLOYMENT"
 on:
-  push:
+  pull_request:
     branches:
-      - stage
+      - development
+    types:
+      - closed
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo The PR was successfully merged.
+
   terraform:
     uses: ./.github/workflows/terraform.yml
     with:

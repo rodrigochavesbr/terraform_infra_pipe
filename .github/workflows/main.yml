@@ -1,36 +1,24 @@
 name: "PROD DEPLOYMENT"
-
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - stage
+    types:
+      - closed
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  check_branch:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Check if the push is from 'stage'
-        run: |
-          # Ensure the push event is valid
-          if [ "${{ github.ref }}" != "refs/heads/main" ]; then
-            echo "ERROR: This workflow is triggered only for pushes to the 'main' branch."
-            exit 1
-          fi
-
-          # Check if the push is coming from the 'stage' branch
-          base_branch=$(git for-each-ref --format '%(upstream:short)' $(git symbolic-ref -q HEAD) || echo "none")
-
-          if [ "$base_branch" != "stage" ]; then
-            echo "ERROR: You can only merge to 'main' from 'stage'."
-            exit 1
-          fi
+      - run: |
+          echo The PR was successfully merged.
 
   terraform:
-    needs: check_branch
     uses: ./.github/workflows/terraform.yml
     with:
       environment: "prod"
