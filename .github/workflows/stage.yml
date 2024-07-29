@@ -1,35 +1,10 @@
-name: CI/CD Pipeline
-
 on:
   push:
     branches:
-      - development
       - stage
-      - prod
 
 jobs:
-  check-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Ensure correct branch merging
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/stage" ]]; then
-            if [[ "${{ github.event.pull_request.base.ref }}" != "development" ]]; then
-              echo "Merges into stage branch are only allowed from development branch."
-              exit 1
-            fi
-          elif [[ "${{ github.ref }}" == "refs/heads/prod" ]]; then
-            if [[ "${{ github.event.pull_request.base.ref }}" != "stage" ]]; then
-              echo "Merges into prod branch are only allowed from stage branch."
-              exit 1
-            fi
-          fi
-
   terraform:
-    needs: check_branch
     uses: ./.github/workflows/terraform.yml
     with:
       environment: "stage"
