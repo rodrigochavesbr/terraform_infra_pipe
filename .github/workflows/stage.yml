@@ -1,8 +1,8 @@
-name: "DEV DEPLOYMENT"
+name: "STAGE DEPLOYMENT"
 on:
   push:
     branches:
-      - development
+      - stage
 
 permissions:
   id-token: write
@@ -12,7 +12,7 @@ jobs:
   terraform:
     uses: ./.github/workflows/terraform.yml
     with:
-      environment: "dev"
+      environment: "stage"
       aws-assume-role-arn: "arn:aws:iam::730335498054:role/github-actions-rodrigochavesbr-pipeline"
       aws-region: "sa-east-1"
       aws-statefile-s3-bucket: "rodrigochavesbr-sa-east-1-terraform-statefile"

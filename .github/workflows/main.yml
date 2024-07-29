@@ -1,15 +1,26 @@
-name: "DEV DEPLOYMENT"
+name: "PROD DEPLOYMENT"
+
 on:
   push:
     branches:
       - main
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  id-token: write
+  contents: read
 
 jobs:
+  check_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch
+        if: github.base_ref == 'main' && github.head_ref != 'stage'
+        run: |
+          echo "ERROR: You can only merge to main from Stage."
+          exit 1
+
   terraform:
+    needs: validate-branch
     uses: ./.github/workflows/terraform.yml
     with:
       environment: "prod"

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import "./Octet.css";
+import React, { useState } from 'react';
+import './Octet.css';
 
 const Octet = (props) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isValid, setIsValid] = useState(props.value < 255);
 
-  const validClass = isValid ? "valid" : "invalid";
+  const validClass = isValid ? 'valid' : 'invalid';
   const classes = `octet ${validClass}`;
 
   return (
@@ -19,8 +19,8 @@ const Octet = (props) => {
             change = true;
             setIsValid(false);
             props.setValid(false);
-            setMessage("incorrect value");
-          } else if (e.target.value === "" || isNaN(e.target.value)) {
+            setMessage('incorrect value');
+          } else if (e.target.value === '' || isNaN(e.target.value)) {
             change = false;
             //stay the same
           } else {

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "./SubnetNumbersInput.css";
+import React, { useState } from 'react';
+import './SubnetNumbersInput.css';
 
 const SubnetNumbersInput = (props) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isValid, setIsValid] = useState(
-    props.value < props.maxNumberOfSubnets
+    props.value < props.maxNumberOfSubnets,
   );
 
-  const validClass = isValid ? "valid" : "invalid";
+  const validClass = isValid ? 'valid' : 'invalid';
   const classes = `subnet-numbers ${validClass}`;
 
   return (
@@ -21,8 +21,8 @@ const SubnetNumbersInput = (props) => {
           if (e.target.value < 0 || e.target.value > props.maxNumberOfSubnets) {
             change = true;
             setIsValid(false);
-            setMessage("incorrect number of subnets");
-          } else if (e.target.value === "") {
+            setMessage('incorrect number of subnets');
+          } else if (e.target.value === '') {
             change = true;
           } else if (isNaN(e.target.value)) {
             change = false;

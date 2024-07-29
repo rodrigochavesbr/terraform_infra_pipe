@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import "./Netmask.css";
+import React, { useState } from 'react';
+import './Netmask.css';
 
 const Netmask = (props) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isValid, setIsValid] = useState(true);
 
-  const validClass = isValid ? "valid" : "invalid";
+  const validClass = isValid ? 'valid' : 'invalid';
   const classes = `netmask ${validClass}`;
 
   return (
@@ -19,8 +19,8 @@ const Netmask = (props) => {
             change = true;
             setIsValid(false);
             props.setValid(false);
-            setMessage("incorrect value");
-          } else if (e.target.value === "" || isNaN(e.target.value)) {
+            setMessage('incorrect value');
+          } else if (e.target.value === '' || isNaN(e.target.value)) {
             change = false;
             //stay the same
           } else {
