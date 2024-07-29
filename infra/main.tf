@@ -1,4 +1,3 @@
-# Define the S3 Bucket
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
   tags = {
@@ -6,7 +5,6 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-# Configure the bucket for static site hosting
 resource "aws_s3_bucket_website_configuration" "static_site_bucket" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -19,7 +17,6 @@ resource "aws_s3_bucket_website_configuration" "static_site_bucket" {
   }
 }
 
-# Block public access settings for the bucket
 resource "aws_s3_bucket_public_access_block" "static_site_bucket" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -29,7 +26,6 @@ resource "aws_s3_bucket_public_access_block" "static_site_bucket" {
   restrict_public_buckets = false
 }
 
-# Ownership controls to manage object ownership
 resource "aws_s3_bucket_ownership_controls" "static_site_bucket" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -38,7 +34,6 @@ resource "aws_s3_bucket_ownership_controls" "static_site_bucket" {
   }
 }
 
-# Optional: If you want to apply public read access through bucket policy
 resource "aws_s3_bucket_policy" "static_site_bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -50,7 +45,26 @@ resource "aws_s3_bucket_policy" "static_site_bucket_policy" {
         Principal = "*",
         Action = "s3:GetObject",
         Resource = "${aws_s3_bucket.bucket.arn}/*"
+      },
+      {
+        Sid: "ModifyBucketPolicy",
+        Action: [
+          "s3:GetBucketPolicy",
+          "s3:PutBucketPolicy"
+        ],
+        Effect: "Allow",
+        Resource: "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}"
+      },
+      {
+        Sid: "AccessS3Console",
+        Action: [
+          "s3:GetBucketLocation",
+          "s3:ListAllMyBuckets"
+        ],
+        Effect: "Allow",
+        Resource: "arn:aws:s3:::*"
       }
     ]
   })
 }
+
