@@ -18,9 +18,6 @@ on:
       aws-lock-dynamodb-table:
         type: string
         required: true
-      bucket_name:
-        type: string
-        required: true
 
 jobs:
   terraform:
@@ -71,6 +68,13 @@ jobs:
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
           terraform apply "${{ inputs.environment }}.plan"
 
+      - name: Get bucket name
+        id: output
+        run: |
+          cd infra
+          bucket_name=$(terraform output -raw bucket_name)
+          echo "bucket_name=$bucket_name" >> $GITHUB_ENV
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -92,4 +96,4 @@ jobs:
         run: npm run build
 
       - name: Upload application to S3
-        run: aws s3 cp build s3://${{ inputs.bucket_name }} --recursive
+        run: aws s3 cp build s3://${{ env.bucket_name }} --recursive
