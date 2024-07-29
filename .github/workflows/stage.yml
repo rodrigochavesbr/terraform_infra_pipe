@@ -1,4 +1,4 @@
-name: "PROD DEPLOYMENT"
+name: "STAGE DEPLOYMENT"
 on:
   pull_request:
     branches:
