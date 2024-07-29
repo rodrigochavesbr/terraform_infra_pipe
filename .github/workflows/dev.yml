@@ -17,4 +17,3 @@ jobs:
       aws-region: "sa-east-1"
       aws-statefile-s3-bucket: "rodrigochavesbr-sa-east-1-terraform-statefile"
       aws-lock-dynamodb-table: "rodrigochavesbr-sa-east-1-terraform-lock"
-      bucket_name: "dev-sa-east-1-buildrun-video-pipeline"
