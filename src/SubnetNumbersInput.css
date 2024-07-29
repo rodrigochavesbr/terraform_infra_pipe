@@ -1,4 +1,4 @@
-.subnet-numbers input[type="text"] {
+.subnet-numbers input[type='text'] {
   background: #fff;
   border: 1px solid #999;
   font-size: 13px;
@@ -21,7 +21,7 @@
   display: none;
 }
 
-.invalid input[type="text"] {
+.invalid input[type='text'] {
   background-color: #fce4e4;
   border: 1px solid #cc0033;
   outline: none;

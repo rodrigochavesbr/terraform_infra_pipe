@@ -1,9 +1,9 @@
-import Octet from "./Octet";
-import Netmask from "./Netmask";
-import SubnetNumbersInput from "./SubnetNumbersInput";
-import React, { useState } from "react";
-import { IPv4 } from "./lib/ipv4";
-import "./IPv4Addr.css";
+import Octet from './Octet';
+import Netmask from './Netmask';
+import SubnetNumbersInput from './SubnetNumbersInput';
+import React, { useState } from 'react';
+import { IPv4 } from './lib/ipv4';
+import './IPv4Addr.css';
 
 const IPv4Addr = (props) => {
   const [ipv4, setIpv4] = useState(new IPv4([10, 0, 8, 0], 21));
@@ -37,7 +37,7 @@ const IPv4Addr = (props) => {
       netmasksElements.push(
         <div key={`networkAddress-${index}`}>
           {e.networkAddress}/{e.netmask} ({e.count} hosts)
-        </div>
+        </div>,
       );
     });
     return netmasksElements;
@@ -58,7 +58,7 @@ const IPv4Addr = (props) => {
               {index < 3 ? <span>.</span> : <span className="slash">/</span>}
             </div>
           );
-        })}{" "}
+        })}{' '}
         <Netmask
           value={ipv4.mask}
           setValid={setValidAddress}
@@ -115,7 +115,7 @@ const IPv4Addr = (props) => {
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className="subnets">
@@ -145,7 +145,7 @@ const IPv4Addr = (props) => {
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>
