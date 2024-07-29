@@ -2,6 +2,10 @@ provider "aws" {
   region = "sa-east-1"
 }
 
+resource "aws_s3_bucket" "static_site_bucket" {
+  bucket = "static-site-${var.bucket_name}"
+}
+
 resource "aws_s3_bucket_website_configuration" "static_site_bucket" {
   bucket = aws_s3_bucket.static_site_bucket.bucket
 
