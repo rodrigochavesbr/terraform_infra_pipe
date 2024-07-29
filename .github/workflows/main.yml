@@ -1,0 +1,19 @@
+name: "DEV DEPLOYMENT"
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      environment: "prod"
+      aws-assume-role-arn: "arn:aws:iam::730335498054:role/github-actions-rodrigochavesbr-pipeline"
+      aws-region: "sa-east-1"
+      aws-statefile-s3-bucket: "rodrigochavesbr-sa-east-1-terraform-statefile"
+      aws-lock-dynamodb-table: "rodrigochavesbr-sa-east-1-terraform-lock"
