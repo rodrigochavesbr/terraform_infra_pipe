@@ -65,10 +65,9 @@ resource "aws_s3_bucket_policy" "static_site_bucket_policy" {
           "AWS": "*"
         },
         Action: [
-          "s3:GetBucketLocation",
-          "s3:ListAllMyBuckets"
+          "s3:GetBucketLocation"
         ],
-        Resource: "arn:aws:s3:::*"
+        Resource: "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}"
       }
     ]
   })
