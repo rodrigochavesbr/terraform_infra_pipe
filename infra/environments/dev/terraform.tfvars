@@ -1,1 +1,1 @@
-bucket_name="dev-sa-east-1-build-run-pipeline"
+bucket_name="dev-sa-east-1-buildrun-video-pipeline"
