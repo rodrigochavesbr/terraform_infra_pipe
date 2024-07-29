@@ -30,7 +30,7 @@ resource "aws_s3_bucket_owership_controls" "static_site_bucket" {
     object_ownership = "BucketOwnerPreferred"
   }
 }
-resource "aw3_s3_acl" "static_site_bucket" {
+resource "aws_s3_acl" "static_site_bucket" {
   depends_on = [
     aws_s3_bucket_public_access_block.static_site_bucket,
     aws_s3_bucket_owership_controls.static_site_bucket
