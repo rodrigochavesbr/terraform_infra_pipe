@@ -48,23 +48,28 @@ resource "aws_s3_bucket_policy" "static_site_bucket_policy" {
       },
       {
         Sid: "ModifyBucketPolicy",
+        Effect: "Allow",
+        Principal: {
+          "AWS": "*"
+        },
         Action: [
           "s3:GetBucketPolicy",
           "s3:PutBucketPolicy"
         ],
-        Effect: "Allow",
         Resource: "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}"
       },
       {
         Sid: "AccessS3Console",
+        Effect: "Allow",
+        Principal: {
+          "AWS": "*"
+        },
         Action: [
           "s3:GetBucketLocation",
           "s3:ListAllMyBuckets"
         ],
-        Effect: "Allow",
         Resource: "arn:aws:s3:::*"
       }
     ]
   })
 }
-
