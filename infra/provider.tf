@@ -4,7 +4,6 @@ provider "aws" {
 
 resource "aws_s3_bucket" "static_site_bucket" {
   bucket = "static-site-${var.bucket_name}"
-  acl    = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "static_site_bucket" {
@@ -34,4 +33,9 @@ resource "aws_s3_bucket_ownership_controls" "static_site_bucket" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
+}
+
+resource "aws_s3_bucket_acl" "static_site_bucket" {
+  bucket = aws_s3_bucket.static_site_bucket.bucket
+  acl    = "public-read"
 }
