@@ -2,9 +2,8 @@ provider "aws" {
   region = "sa-east-1"
 }
 
-# Assuming the bucket already exists
 resource "aws_s3_bucket" "static_site_bucket" {
-  bucket = "dev-sa-east-1-buildrun-video-pipeline"
+  bucket = "static-site-${var.bucket_name}"
 }
 
 resource "aws_s3_bucket_website_configuration" "static_site_bucket" {
