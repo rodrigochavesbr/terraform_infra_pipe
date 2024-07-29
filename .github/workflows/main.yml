@@ -1,32 +1,26 @@
-name: "PROD DEPLOYMENT"
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
-
-permissions:
-  id-token: write
-  contents: read
+      - development
+      - stage
+      - prod
 
 jobs:
-  check_branch:
+  check-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if the push is from 'stage'
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Ensure correct branch merging
         run: |
-          # Ensure the push event is valid
-          if [ "${{ github.ref }}" != "refs/heads/main" ]; then
-            echo "ERROR: This workflow is triggered only for pushes to the 'main' branch."
-            exit 1
-          fi
-
-          # Check if the push is coming from the 'stage' branch
-          base_branch=$(git for-each-ref --format '%(upstream:short)' $(git symbolic-ref -q HEAD) || echo "none")
-
-          if [ "$base_branch" != "stage" ]; then
-            echo "ERROR: You can only merge to 'main' from 'stage'."
-            exit 1
+          if [[ "${{ github.ref }}" == "refs/heads/prod" ]]; then
+            if [[ "${{ github.event.pull_request.base.ref }}" != "stage" ]]; then
+              echo "Merges into prod branch are only allowed from stage branch."
+              exit 1
+            fi
           fi
 
   terraform:
