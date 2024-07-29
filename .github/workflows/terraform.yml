@@ -79,8 +79,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-#      - name: Run linter
-#        run: npm run lint
+      - name: Run linter
+        run: npm run lint
 
 #      - name: Run formatter
 #        run: npm run prettier
@@ -92,4 +92,4 @@ jobs:
         run: npm run build
 
       - name: Upload application to S3
-        run: aws s3 cp build s3://${{ inputs.bucket_name }} --recursive --acl public-read
+        run: aws s3 cp build s3://${{ inputs.bucket_name }} --recursive
