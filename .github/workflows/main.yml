@@ -25,27 +25,3 @@ jobs:
       aws-region: "sa-east-1"
       aws-statefile-s3-bucket: "rodrigochavesbr-sa-east-1-terraform-statefile"
       aws-lock-dynamodb-table: "rodrigochavesbr-sa-east-1-terraform-lock"
-
-
-name: Protect Stage Branch
-
-on:
-  pull_request:
-    branches:
-      - stage
-
-jobs:
-  check-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if PR is from devel branch
-        id: check_pr_branch
-        run: |
-          if [[ "${{ github.head_ref }}" != "devel" ]]; then
-            echo "PR is not from the devel branch"
-            exit 1
-          fi
-
-      - name: Approve if from devel branch
-        if: success()
-        run: echo "PR is from devel branch, proceeding..."
