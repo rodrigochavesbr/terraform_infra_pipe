@@ -20,13 +20,13 @@ jobs:
             exit 1
           fi
 
-      - name: Approve if from devel branch
+      - name: Approve if from development branch
         if: success()
-        run: echo "PR is from devel branch, proceeding..."
+        run: echo "PR is from development branch, proceeding..."
 
   terraform:
     needs: check-branch
-    if: success() # This ensures the terraform job runs only if the check-branch job succeeds
+    if: needs.check-branch.result == 'success'
     uses: ./.github/workflows/terraform.yml
     with:
       environment: "stage"
@@ -34,4 +34,3 @@ jobs:
       aws-region: "sa-east-1"
       aws-statefile-s3-bucket: "rodrigochavesbr-sa-east-1-terraform-statefile"
       aws-lock-dynamodb-table: "rodrigochavesbr-sa-east-1-terraform-lock"
-
