@@ -1,10 +1,9 @@
 name: "STAGE DEPLOYMENT"
 on:
-  pull_request:
+  push:
+    # For the develop branch only.
     branches:
       - development
-    types:
-      - closed
 
 permissions:
   id-token: write
